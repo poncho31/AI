@@ -38,4 +38,4 @@
 
 3. #### APIs
 
-   - En cours ...
+   - Mis en place de l'API pour "comfy ui" : voir ***comfyui_api.php***  

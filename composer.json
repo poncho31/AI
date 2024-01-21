@@ -12,5 +12,8 @@
             "email": "gilles.pinchart@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-curl": "*",
+        "ext-json": "*"
+    }
 }
