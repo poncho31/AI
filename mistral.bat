@@ -1,1 +1,0 @@
-wsl ollama run mistral
