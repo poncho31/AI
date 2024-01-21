@@ -77,6 +77,7 @@ if "%application%"=="docker-ai" (
 
 REM WSL SECTION
 ) else if ("%application%" == "wsl") (
+
     if "%AI_model%"=="ollama-mistral" (
         wsl ollama run mistral
 
@@ -85,6 +86,10 @@ REM WSL SECTION
 
     ) else if "%AI_model%"=="shutdown" (
         wsl --shutdown
+
+    ) else if "%AI_model%"=="force-kill" (
+        REM FOrce kill process :
+        taskkill /f /im wslservice.exe
 
     ) else if "%AI_model%"=="export-docker-desktop-data" (
         wsl --export docker-desktop-data k:\docker-data\dockerstktop.tar
