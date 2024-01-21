@@ -32,3 +32,5 @@
    - http://localhost:7860/
    
    - Images stockées : ./packages/stable_diffusion/stable-diffusion-webui-docker/output/comfy
+
+3. 

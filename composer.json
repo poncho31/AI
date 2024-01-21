@@ -1,0 +1,16 @@
+{
+    "name": "gilles.pinchart/ai",
+    "description": "AI test trough a php, html, css interface",
+    "autoload": {
+        "psr-4": {
+            "GillesPinchart\\Ai\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "poncho31",
+            "email": "gilles.pinchart@gmail.com"
+        }
+    ],
+    "require": {}
+}
