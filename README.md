@@ -16,7 +16,7 @@
   - https://windows.php.net/downloads/releases/php-8.3.2-nts-Win32-vs16-x64.zip
   - A installer et extraire dans ./packages/php/php-8.3.2-nts
 
-### EXAMPLES DE COMMANDES
+### EXEMPLES DE COMMANDES
 
 1. **Lancer l'IA mistral**
 
