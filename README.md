@@ -33,4 +33,6 @@
    
    - Images stockées : ./packages/stable_diffusion/stable-diffusion-webui-docker/output/comfy
 
-3. 
+3. **APIs**
+
+   - En cours ...
