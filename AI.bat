@@ -93,7 +93,9 @@ REM WSL SECTION
     )
 
 ) else (
-    call :printMessage "Unrecognized application : %application%"
+
+    call :printMessage "Unrecognized application : %application% AFFICHER CONTENU DU READ ME"
+    for /f "usebackq delims=" %%a in (README.md) do call :printMessage "%%a" "text"
 )
 
 goto :eof
@@ -172,9 +174,13 @@ goto :eof
     if "%type%" == "title" (
         set "color=42"
         set "indent="
+
+    )  else if "%type%" == "text" (
+        set "color=40"
+        set "indent=               "
     )
 
-    echo %indent%[1;%color%m %message% [0m
+    echo "%indent%[1;%color%m %message% [0m"
 goto :eof
 
 

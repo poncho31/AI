@@ -8,8 +8,8 @@
 
 - ***stabel-diffusion-webui-docker***, IA generatrice d'image / video / text to image: https://github.com/AbdBarho/stable-diffusion-webui-docker
   - A installer dans ./packages/stable_diffusion
-
-  - Vue ***confyui*** pour stable-diffusion-webui: https://github.com/comfyanonymous/ComfyUI (sera installé via le package stabel-diffusion et la commande "docker compose --profile comfy up --build")
+  - Vue ***confyui*** pour stable-diffusion-webui: https://github.com/comfyanonymous/ComfyUI 
+    - sera installé via le package stabel-diffusion et la commande : docker compose --profile comfy up --build
 
 
 - ***PHP : php-8.3.2-nts***
