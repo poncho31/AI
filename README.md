@@ -31,7 +31,7 @@
    - Accès via le terminal directement
 
 
-2. #### Lancer l'IA stable duffusion comfy ui
+2. #### Lancer l'IA stable diffusion comfy ui
         ./AI.bat docker-ai stable-diffusion
    - http://localhost:7860/
    - Images stockées : ./packages/stable_diffusion/stable-diffusion-webui-docker/output/comfy
