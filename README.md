@@ -1,4 +1,5 @@
-### AI INTEGRATOR : GENERATEUR TEXTE / GENERATEUR IMAGE / LOCAL / API
+### AI INTEGRATOR :
+    GENERATEUR TEXTE / GENERATEUR IMAGE / GENERATEUR VIDEO / LOCAL / API
 
 - ***Docker-desktop*** windows : https://www.docker.com/products/docker-desktop/
 
