@@ -39,3 +39,9 @@
 3. #### APIs
 
    - Mis en place de l'API pour "comfy ui" : voir ***comfyui_api.php***  
+   - Mis en place de l'API pour "Ollama" : voir ***ollama_api.php***  
+
+4. #### Web Server
+   - Installation de php dans ./packages/php
+   - Modification du WebServer.bat afin de correspondre à la version de php installée
+   - Lancer WebServer.bat pour lancer le serveur. Pointe vers ./public/index.php

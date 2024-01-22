@@ -1,5 +1,20 @@
 <?php
-$prompt    = ($argv[1] ?? null) ? $argv[1]  : "Pourquoi le ciel est bleu ?";
+// Indiquer le type de contenu
+header("Content-Type: application/json");
+// Envoyer les en-têtes pour le streaming
+header("Transfer-Encoding: chunked");
+header("Cache-Control: no-cache, must-revalidate");
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+
+// PROMPT
+$prompt = "Pourquoi le ciel est bleu ?";
+if(!empty($_POST)){
+    $prompt =$_POST['message'];
+}
+elseif (($argv[1] ?? null)){
+    $prompt = $argv[1];
+}
+// IS STREAMING
 $streaming = !(($argv[2] ?? null) == "false");
 $apiUrl = 'http://localhost:11434/api/generate';
 $data = json_encode([
@@ -37,18 +52,19 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 // Fonction de rappel pour afficher en streaming
 curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($ch, $data) {
     $words = (json_decode($data))->response;
+    sendChunk($words);
     printMessage($words, "text", false);
     return strlen($data);
 });
 
 // Exécute la requête
-curl_exec($ch);
+$response = curl_exec($ch);
 
 // Vérifie s'il y a des erreurs
 if (curl_errno($ch)) {
     echo 'Erreur cURL : ' . curl_error($ch);
 }
-
+echo $response;
 // Ferme la session cURL
 curl_close($ch);
 
@@ -69,4 +85,12 @@ function printMessage($message, $type = 'text', $eol = true) {
 
     $eol = $eol ? "\r\n" : "";
     echo "$indent[1;{$color}m$message[0m$eol"; // ANSI escape codes for color and text formatting
+}
+
+
+function sendChunk($data) {
+    echo dechex(strlen($data)) . "\r\n"; // Taille du chunk en hexadécimal, suivi de CRLF
+    echo $data . "\r\n"; // Les données du chunk, suivi de CRLF
+    ob_flush(); // Vider le tampon de sortie
+    flush(); // Forcer l'envoi des données
 }
