@@ -3,10 +3,10 @@ $prompt    = ($argv[1] ?? null) ? $argv[1]  : "Pourquoi le ciel est bleu ?";
 $streaming = !(($argv[2] ?? null) == "false");
 $apiUrl = 'http://localhost:11434/api/generate';
 $data = json_encode([
-    "model"       => "mistral",
-    "prompt"      => $prompt,
-    "stream"      => $streaming,
-    "temperature" => 1, // The temperature of the model. Increasing the temperature will make the model answer more creatively. (Default: 0.8)
+    "model"           => "mistral",
+    "prompt"          => $prompt,
+    "stream"          => $streaming,
+    "temperature"     => 1, // The temperature of the model. Increasing the temperature will make the model answer more creatively. (Default: 0.8)
     // "images"         => null, // Certain modele d'ia comme llava nécessite l'entrée d'une image en base64 ?
      "mirostat"       => 0, // Enable Mirostat sampling for controlling perplexity. (default: 0, 0 = disabled, 1 = Mirostat, 2 = Mirostat 2.0)
     "mirostat_eta"    => 0.1, // Influences how quickly the algorithm responds to feedback from the generated text. A lower learning rate will result in slower adjustments, while a higher learning rate will make the algorithm more responsive. (Default: 0.1)
