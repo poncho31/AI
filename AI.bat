@@ -62,6 +62,12 @@ if "%application%"=="docker-ai" (
             REM docker compose --profile auto up --build
 
     ) else if "%AI_model%" == "docker-simple-example" (
+
+        REM Exemple monter volume dans un dossier spécifique de windows + création container
+        docker run -it -d --mount src='/c/DOCKER/ollama/models',target='/usr/share/ollama/.ollama/models',type=bind -p 11434:11434 --name ollamaContainer ollama/ollama
+        REM OU avec -v
+        docker run -it -d -v /c/DOCKER/ollama/models:/usr/share/ollama/.ollama/models -p 11434:11434 --name ollamaContainer ollama/ollama
+
         REM Ollama mistral via docker
         docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
         docker exec -it ollama ollama run mistral
