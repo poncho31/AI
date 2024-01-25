@@ -23,12 +23,13 @@
 
 - #### ***Exemples de commandes***
     #### Lancer l'IA mistral
-      - ./AI.bat docker-ai ollama-mistral ollamaContainer 11434
-      - Accès via le terminal directement
+      ./AI.bat docker-ai ollama-mistral ollamaContainer 11434
+
+    - Accès via le terminal directement
     #### Lancer l'IA stable diffusion comfy ui
       - ./AI.bat docker-ai stable-diffusion
-      - http://localhost:7860/
-      - Images stockées : ./packages/stable_diffusion/stable-diffusion-webui-docker/output/comfy
+    http://localhost:7860/
+    - Images stockées : ./packages/stable_diffusion/stable-diffusion-webui-docker/output/comfy
 
 ### 3) APIs
    - Mis en place de l'API pour "comfy ui" : voir ***comfyui_api.php***  
