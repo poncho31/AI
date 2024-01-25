@@ -42,22 +42,27 @@ if "%application%"=="docker-ai" (
         cd /d "%rootPath%/src/docker/ollama"
         "./OllamaLlavaRun.bat"
 
-    ) else if "%AI_model%" == "stable-diffusion" (
-        REM https://github.com/AbdBarho/stable-diffusion-webui-docker
-        set "appPath=!rootPath!packages\stable_diffusion\stable-diffusion-webui-docker\"
-        set "stableDiffusionWebuiDockerRepo=https://github.com/AbdBarho/stable-diffusion-webui-docker.git"
-        REM Install or update git package
-        git pull !stableDiffusionWebuiDockerRepo!
+    ) else if "%AI_model%" == "stable-diffusion-comfyui" (
+            cd /d "%rootPath%/src/docker/stable-diffusion"
+            "./StableDiffusionComfyuiRun.bat"
 
-        REM Run docker compose download / update file
-        cd !appPath!
-        docker compose --profile download up --build
 
-        REM Run comfy ui server + webserver
-        docker compose --profile comfy up --build
-            REM Other possible profile
-            REM docker compose --profile invoke up --build
-            REM docker compose --profile auto up --build
+                    REM REM https://github.com/AbdBarho/stable-diffusion-webui-docker
+                    REM set "appPath=!rootPath!packages\stable_diffusion\stable-diffusion-webui-docker\"
+                    REM set "stableDiffusionWebuiDockerRepo=https://github.com/AbdBarho/stable-diffusion-webui-docker.git"
+                    REM REM Install or update git package
+                    REM git pull !stableDiffusionWebuiDockerRepo!
+            REM
+                    REM REM Run docker compose download / update file
+                    REM cd !appPath!
+                    REM docker compose --profile download up --build
+            REM
+                    REM REM Run comfy ui server + webserver
+                    REM docker compose --profile comfy up --build
+
+
+
+
 
     ) else if "%AI_model%" == "docker-simple-example" (
 
