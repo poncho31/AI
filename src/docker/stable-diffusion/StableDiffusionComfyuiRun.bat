@@ -4,15 +4,15 @@ if not "%1" == "" (
 ) else (
     set "rootPath=%~dp0"
 )
-echo %rootPath%
-
 set "appPath=!rootPath!\stable-diffusion-webui-docker\"
-set "stableDiffusionWebuiDockerRepo=https://github.com/AbdBarho/stable-diffusion-webui-docker.git"
-REM Install or update git package
-git pull !stableDiffusionWebuiDockerRepo!
 
-REM Run docker compose download / update file
+set "stableDiffusionWebuiDockerRepo=https://github.com/AbdBarho/stable-diffusion-webui-docker.git"
+cd !rootPath!
+git clone "%stableDiffusionWebuiDockerRepo%"
 cd !appPath!
+REM git pull !stableDiffusionWebuiDockerRepo!
+
+
 docker compose --profile download up --build
 
 REM Run comfy ui server + webserver

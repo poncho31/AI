@@ -44,7 +44,7 @@ if "%application%"=="docker-ai" (
 
     ) else if "%AI_model%" == "stable-diffusion-comfyui" (
             cd /d "%rootPath%/src/docker/stable-diffusion"
-            "./StableDiffusionComfyuiRun.bat"
+            StableDiffusionComfyuiRun.bat "%rootPath%/packages/stable_diffusion"
 
 
                     REM REM https://github.com/AbdBarho/stable-diffusion-webui-docker
