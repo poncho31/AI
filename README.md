@@ -34,10 +34,10 @@
    - Mis en place de l'API pour "comfy ui" : voir ***comfyui_api.php***  
    - Mis en place de l'API pour "Ollama" : voir ***ollama_api.php***  
 
-### 4) Web Server
+### 4) Web Server (en cours)
    - Installation de php dans ./packages/php
    - Modification du WebServer.bat afin de correspondre à la version de php installée
    - Lancer WebServer.bat pour lancer le serveur. Pointe vers ./public/index.php
 
-### 5) Automatisation des tâches avec l'ia
+### 5) Automatisation des tâches avec l'ia (en cours)
    - ex : Ouvrir netflix et se connecter
