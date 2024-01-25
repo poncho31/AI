@@ -31,18 +31,16 @@ if "%application%"=="docker-ai" (
     call :CheckApplication "docker"
 
     if "%AI_model%"=="ollama-mistral" (
-        REM Lancement du container "ollama", de l'image "ollama/ollama" sur le port "11434:11434"
-        call :runDockerContainer "%container%" "ollama/ollama" "%port%"
-        REM Lancement de la commande "ollama run mistral" dans le container "ollama"
-        call :executeDockerContainerApp "%container%" "ollama run mistral"
+        cd /d "%rootPath%/src/docker/ollama"
+        "./OllamaMistralRun.bat"
 
     ) else if "%AI_model%"=="ollama-llava" (
-        call :runDockerContainer "%container%" "ollama/ollama" "11435"
-        call :executeDockerContainerApp "%container%" "ollama run llava"
+        cd /d "%rootPath%/src/docker/ollama"
+        "./OllamaLlavaRun.bat"
 
     ) else if "%AI_model%"=="ollama-mixtral" (
-        call :runDockerContainer "%container%" "ollama/ollama" "11437"
-        call :executeDockerContainerApp "%container%" "ollama run mixtral"
+        cd /d "%rootPath%/src/docker/ollama"
+        "./OllamaLlavaRun.bat"
 
     ) else if "%AI_model%" == "stable-diffusion" (
         REM https://github.com/AbdBarho/stable-diffusion-webui-docker
@@ -65,6 +63,8 @@ if "%application%"=="docker-ai" (
 
         REM Exemple monter volume dans un dossier spécifique de windows + création container
         docker run -it -d --mount src='/c/DOCKER/ollama/models',target='/usr/share/ollama/.ollama/models',type=bind -p 11434:11434 --name ollamaContainer ollama/ollama
+        docker exec -it ollamaContainer ollama run mistral
+
         REM OU avec -v
         docker run -it -d -v /c/DOCKER/ollama/models:/usr/share/ollama/.ollama/models -p 11434:11434 --name ollamaContainer ollama/ollama
 

@@ -1,6 +1,6 @@
 {
     "name": "gilles.pinchart/ai",
-    "description": "AI test trough a php, html, css interface",
+    "description": "AI test trough a simple php, html, css interface",
     "autoload": {
         "psr-4": {
             "GillesPinchart\\Ai\\": "src/"
@@ -13,8 +13,8 @@
         }
     ],
     "require": {
-      "ext-curl": "*",
+        "ext-curl": "*",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^7.8"
+        "ext-pdo": "*"
     }
 }

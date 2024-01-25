@@ -1,45 +1,18 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$test = new \GillesPinchart\Ai\database\Sqlite();
+var_dump($test->connect());
 $requestUri = $_SERVER['REQUEST_URI'];
 
 // Route: /api/ollama
 if (strpos($requestUri, '/src/ollama_api.php') === 0) {
     // Effectuer une requête vers l'API PHP
     $apiUrl = 'http://localhost:666/src/api/ollama_api.php';
-
-    // Démarrer la temporisation de sortie
-    ob_start();
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $apiUrl);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    // Fonction de rappel pour afficher en streaming
-    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($ch, $data) {
-        echo $data;
-        ob_flush();
-        flush();
-        return strlen($data);
-    });
-
-    // Exécuter la requête et activer la temporisation de sortie pour la diffusion en continu
-    curl_exec($ch);
-
-    // Récupérer le contenu de la temporisation de sortie et la vider
-    $response = ob_get_clean();
-
-    // Envoyer le contenu de la réponse au client en streaming
-    header("Content-Type: application/json");
-    header("Cache-Control: no-cache, must-revalidate");
-    header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-
-    echo $response;
-    die();
 }
 else{
     // HTML CSS / JS
     ?>
-
-
     <!DOCTYPE html>
     <html lang="en">
     <head>
