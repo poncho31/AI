@@ -25,7 +25,7 @@ REM INIT USERS PARAMETERS
     )
 
 REM DOCKER SECTION
-if "%application%"=="docker-ai" (
+if "%application%"=="docker" (
     call :printMessage "Traitement pour %application% %AI_model%" "title"
     REM Vérifier si Docker est installé en utilisant docker -v
     call :CheckApplication "docker"

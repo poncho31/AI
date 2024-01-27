@@ -1,9 +1,11 @@
 <?php
 namespace AI\public;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+use GillesPinchart\Ai\database\Sqlite;
 
-$test = new \GillesPinchart\Ai\database\Sqlite();
+require_once __DIR__ . '/../../../../vendor/autoload.php';
+
+$test = new Sqlite();
 var_dump($test->connect());
 $requestUri = $_SERVER['REQUEST_URI'];
 
