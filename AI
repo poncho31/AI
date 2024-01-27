@@ -1,19 +1,16 @@
 #!/usr/bin/env php
 <?php
-require __DIR__.'/vendor/autoload.php';
-require_once(__DIR__. '/src/APP/shortcut/__shortcuts.php');
-define('AI_START', microtime(true));
-
 
 use GillesPinchart\Ai\APP\console\console;
 use GillesPinchart\Ai\APP\server\server;
-use GillesPinchart\Ai\APP\web\routes\routes;
+
+require_once(__DIR__ . '/base_app.php');
+define('AI_START', microtime(true));
 
 // INIT
 $env     = "" ;
 $console = new console($argv);
 $server  = new server();
-
 
 // RUN COMMAND
 switch ($console->action()){
@@ -26,7 +23,7 @@ switch ($console->action()){
                         dd("TEST");
                         break;
                     default:
-                        dd("Code ici ... ou dans le switch case");
+                        dd("Codes ici ... ou dans le switch case");
                         break;
                 }
             });
@@ -36,9 +33,7 @@ switch ($console->action()){
         break;
 
     case 'serve':
-        $router = new routes();
-        // dd($router->web_routes());
-        $server->web_server(__DIR__);
-
+        $base_dir = __DIR__;
+        $server->web_server($base_dir);
         break;
 }

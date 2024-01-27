@@ -7,9 +7,9 @@ use GillesPinchart\Ai\APP\web\routes\route_model;
 class Router
 {
     public array  $routes = [];
-    public string $viewsPath = "../resources/views";
+    public string $viewsPath = "../resources/view";
     /**
-     * @var array
+     * @var array<route_model>
      */
     public array $web_routes = [];
     public array $api_routes = [];
