@@ -3,17 +3,15 @@
 namespace GillesPinchart\Ai\APP\web\routes;
 
 use GillesPinchart\Ai\APP\web\resources\views;
+use GillesPinchart\Ai\constructors\Router;
 
-class router
+class routes extends Router
 {
-    public array  $routes = [];
-    public string $viewsPath = "../resources/views";
-    /**
-     * @var array
-     */
-    public array $web_routes = [];
-    public array $api_routes = [];
 
+    /**
+     *  MODIFIER ICI LA REDIRECTION DES ROUTES
+     * @return array
+     */
     public function web_routes(): array
     {
         // Homepage

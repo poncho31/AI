@@ -7,9 +7,10 @@ define('AI_START', microtime(true));
 
 use GillesPinchart\Ai\APP\console\console;
 use GillesPinchart\Ai\APP\server\server;
-use GillesPinchart\Ai\APP\web\routes\router;
+use GillesPinchart\Ai\APP\web\routes\routes;
 
 // INIT
+$env     = "" ;
 $console = new console($argv);
 $server  = new server();
 
@@ -35,7 +36,7 @@ switch ($console->action()){
         break;
 
     case 'serve':
-        $router = new router();
+        $router = new routes();
         // dd($router->web_routes());
         $server->web_server(__DIR__);
 

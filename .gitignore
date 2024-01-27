@@ -2,3 +2,4 @@
 .packages/php
 .packages/nginx
 /vendor/
+/config/.env
