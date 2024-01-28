@@ -37,16 +37,28 @@ switch ($console->action()){
         };
         break;
 
-/** SERVEUR **/
+/** SERVEUR WEB**/
     case 'serve':
+        // Instance du serveur web
         $base_dir = __DIR__;
         $server  = new server($base_dir);
         $server->web_server($base_dir, 'AI');
         break;
 
     default :
+        // Routing du serveur web
         define('AI_INDEX_START', microtime(true));
-        $routes = new routes();
-        $routes->init_web_routes();
+        (new routes())->display_routes();
+        // Résumé :
+        // 1) On lance le serveur web : php AI serve
+        // 2) Ca va envoyer les requêtes de rooting ici (dès qu'on change d'url ça passe par ici)
+        // 3) Le module de rooting identifie la route choisie et redirige le contenu html / css / js ou l'error 404
+        // 4) Le site web peut faire des requêtes api en post vers le module de rooting
+        //
+        //
+        //
+        //
         break;
+
+
 }

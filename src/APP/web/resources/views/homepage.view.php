@@ -5,7 +5,6 @@
 <?php
 
 use GillesPinchart\Ai\constructors\Html\Html;
-use GillesPinchart\Ai\constructors\Html\HtmlImage;
 
 Html::begin("base");
 ?>

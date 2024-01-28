@@ -11,9 +11,20 @@ class Html
     {
         $title = "AI APP";
         $css   = Css::base();
-        if($file==="error"){
-            $css   = $css . Css::error404();
-            $title = "$title : error 404";
+
+        switch ($file){
+            case 'error' :
+                $css   = $css . Css::error404();
+                $title = "$title : error 404";
+                break;
+            case 'api' :
+                $css   = $css . Css::api();
+                $title = "$title : API";
+                break;
+            default:
+                $title = "$title : chat bot";
+                $css = $css . Css::chat_bot();
+                break;
         }
 
         $html = <<<HTML
@@ -27,20 +38,23 @@ class Html
                     <title>$title</title>
                 </head>
                 <body>
-
-
         HTML;
         echo $html;
     }
 
     public static function end(string $file =""): void
     {
-        $js ="";
-        if($file==='base'){
-            $js    = Javascript::base() . Javascript::chat();
-        }
-        elseif($file==="error"){
-            $js    = Javascript::base();
+        $js    = Javascript::base();
+        switch ($file){
+            case 'error' :
+                $js    = "";
+                break;
+            case 'api' :
+                $js    = " ";
+                break;
+            default:
+                $js    = $js . Javascript::chat();
+                break;
         }
 
         $html = <<<HTML

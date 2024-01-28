@@ -7,7 +7,7 @@ class Css
 
     public  static  function base(): string
     {
-        return "
+        return <<<STYLE
             <style>
                         body {
                             font-family: 'Arial', sans-serif;
@@ -22,8 +22,58 @@ class Css
                             margin: 0 auto; /* Centrer le contenu */
                             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                         }
-                
-                        .sidebar {
+              </style>
+        STYLE;
+    }
+    public static function error404(): string
+    {
+        return "<style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .illustration {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>";
+    }
+
+    public static function chat_bot(): string
+    {
+        return <<<STYLE
+            <style>
+                       .sidebar {
                             width: 200px;
                             background-color: #333;
                             color: #fff;
@@ -137,53 +187,19 @@ class Css
                         input:focus {
                             outline: none;
                         }
-                    </style>
-        ";
+            </style>
+        STYLE;
+
     }
-    public static function error404(): string
+    public static function api(): string
     {
-        return "<style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .container {
-            text-align: center;
-        }
-
-        .illustration {
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            color: #333;
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: #555;
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>";
+        return <<<STYLE
+                <style>
+                    table{
+                        width : 100vw;
+                        height: 100vh;
+                    }
+                </style>"
+            STYLE;
     }
 }

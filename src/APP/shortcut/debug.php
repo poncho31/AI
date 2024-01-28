@@ -15,7 +15,7 @@ class debug
         'bck-violet'  =>45,
     ];
 
-    #[NoReturn] public static function dd($data, $echo = false): void
+    #[NoReturn] public static function dd($data, $echo = false, bool $stop = true): void
     {
         $color = debug::$colors['text-green'];
         if(is_string($data)){
@@ -31,14 +31,16 @@ class debug
 
 
         if($echo){
-            $data = print_r($data, true);
-            printf($data);
+            echo "<pre>".htmlspecialchars(print_r($data, true))."</pre>";
         }
         else{
             echo "[1;{$color}m" .  $data . "[0m";
+
         }
 
-        die();
+        if($stop){
+            die();
+        }
     }
 
 }

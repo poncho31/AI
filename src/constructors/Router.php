@@ -11,8 +11,6 @@ class Router
     /**
      * @var array<route_model>
      */
-    public array $web_routes = [];
-    public array $api_routes = [];
 
     /**
      * @param string $method

@@ -7,9 +7,10 @@ class view
     public static bool  $use_include = true ;
     public static string $views_path = __DIR__. "\\views";
 
-    public static function path(string $view): string
+    public static function path(string $view, string $extension_suffixe ="view"): string
     {
-        return self::$views_path."\\{$view}.view.php";
+        $extension_suffixe = $extension_suffixe!== "" ? ".$extension_suffixe":"";
+        return self::$views_path."\\{$view}$extension_suffixe.php";
     }
 
     /**
@@ -31,7 +32,7 @@ class view
             }
         }
 
-        // Mode de retour (include bug pour l'instant)
+        // Mode de retour
         if(self::$use_include){
             return $path;
         }
