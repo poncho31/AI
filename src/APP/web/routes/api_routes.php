@@ -12,9 +12,11 @@ class api_routes
     public function api_routes(?string $route = null): route_model|array
     {
         // SELECT ROUTE
-        if ($route == '404') {
+        if ($route !== null) {
             return $this->api_route('get', "/$route", "$route");
         }
+
+        // API ROUTES
         $this->api_route('get',  "/ai/api/doc",      "doc","api_doc");
         return $this->api_routes;
     }

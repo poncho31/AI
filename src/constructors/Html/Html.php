@@ -17,9 +17,9 @@ class Html
                 $css   = $css . Css::error404();
                 $title = "$title : error 404";
                 break;
-            case 'api' :
-                $css   = $css . Css::api();
-                $title = "$title : API";
+            case 'example' :
+                $css   = $css . Css::example();
+                $title = "$title : example";
                 break;
             default:
                 $title = "$title : chat bot";
@@ -49,7 +49,7 @@ class Html
             case 'error' :
                 $js    = "";
                 break;
-            case 'api' :
+            case 'example' :
                 $js    = " ";
                 break;
             default:

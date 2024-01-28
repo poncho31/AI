@@ -7,8 +7,8 @@ class routes
 
     public function display_routes(): void
     {
-
         if(str_contains($_SERVER['REQUEST_URI'], 'ai/api')){
+            header('Content-Type: application/json');
             (new api_routes())->display_api_routes();
         }
         else{

@@ -18,14 +18,14 @@ class web_routes
     public function web_routes(?string $route = null): route_model|array
     {
         // SELECT ROUTE
-        if ($route == '404') {
+        if ($route !== null) {
             return $this->web_route('get', "/$route", "$route");
         }
 
         // ROUTES
-        $this->web_route('get',  "/",      "homepage");
-        $this->web_route('get',  "/api",   "api");
-        $this->web_route('get', "/404", "404");
+        $this->web_route('get',  "/",       "homepage");
+        $this->web_route('get',  "/example","example");
+        $this->web_route('get',  "/404",    "404");
 
 
         return $this->web_routes;

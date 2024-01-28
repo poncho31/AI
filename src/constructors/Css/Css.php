@@ -191,7 +191,7 @@ class Css
         STYLE;
 
     }
-    public static function api(): string
+    public static function example(): string
     {
         return <<<STYLE
                 <style>
