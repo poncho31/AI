@@ -1,16 +1,9 @@
 @echo off
-cd /d %~dp0
-cd packages\php\php-8.3.2-nts
-set "host=localhost:666"
+set "root=%~dp0"
+set "php_exec=%root%packages\php\php-8.3.2-nts\php-8.3.2-nts.exe"
+set "app_path=%root%"
 
-set "indexFilePath=%1"
-if "%indexFilePath%"=="" (
-    set "indexFilePath=..\..\..\public\index.php"
-)
+echo "%php_exec%"
+echo "%app_path%"
 
-start "" "http://%host%"
-
-REM PHP VERSION
-php -v
-php -S %host% -t . %indexFilePath%
-REM php -S localhost:666 -t . ..\..\..\src\api\ollama_api.php
+%php_exec% %app_path%AI serve

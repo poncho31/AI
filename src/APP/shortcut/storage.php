@@ -7,7 +7,6 @@ class storage
     public static function path(string $path = ""): string
     {
         return self::check_file_exist(__DIR__."/storage/$path");
-
     }
 
     public static function temp_path(string $path = ""): string

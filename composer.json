@@ -15,6 +15,7 @@
     "require": {
         "ext-curl": "*",
         "ext-json": "*",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "php": "8.3.2"
     }
 }

@@ -8,5 +8,5 @@ use JetBrains\PhpStorm\NoReturn;
 #[NoReturn] function dd($data, $echo=false): void{debug::dd($data, $echo);}
 
 // Storage
-function storage_path(?string$path=""): void{storage::path($path);}
-function temp_path(?string$path=""): void{storage::temp_path($path);}
+function storage_path(?string$path=""): string{return storage::path($path);}
+function temp_path(?string$path=""): string{return storage::temp_path($path);}
