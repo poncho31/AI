@@ -2,21 +2,34 @@
 
 namespace GillesPinchart\Ai\constructors\Html;
 
+use GillesPinchart\Ai\constructors\Css\Css;
+use GillesPinchart\Ai\constructors\Javascript\Javascript;
+
 class Html
 {
-    public static function begin(): void
+    public static function begin(string $file=''): void
     {
-        $style = HtmlImage::style();
+        $css = '';
+        if($file==='base'){
+            $css   = Css::base();
+        }
+        elseif($file==="error"){
+            $css   = Css::error404();
+        }
+
         $html = <<<HTML
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>404 - Page Not Found</title>
-                $style
-            </head>
-            <body>
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    
+                    $css
+                    
+                    <title>ChatGPT Messenger</title>
+                </head>
+                <body>
+
 
         HTML;
         echo $html;
@@ -24,7 +37,9 @@ class Html
 
     public static function end(): void
     {
+        $js    = Javascript::base() . Javascript::chat();
         $html = <<<HTML
+            $js
             </body>
             </html>
         HTML;
