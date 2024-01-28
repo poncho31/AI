@@ -1,8 +1,12 @@
 <?php
 
+use GillesPinchart\Ai\api\ollama\mistral_api;
 use GillesPinchart\Ai\constructors\Html\Html;
 
 Html::begin("example");
+
+// (new mistral_api())->run();
+
 ?>
     <div class="app-container">
         <label for="table">Example vue</label>

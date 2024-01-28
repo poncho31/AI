@@ -92,4 +92,13 @@ class Javascript
         JS;
         return $js;
     }
+
+    public static function sse(): string
+    {
+        $js = <<<JS
+           
+        JS;
+        return $js;
+
+    }
 }

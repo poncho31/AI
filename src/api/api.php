@@ -52,6 +52,7 @@ class api
         // Fonction de rappel pour afficher en streaming
         curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($ch, $data) {
             $words = (json_decode($data))->response;
+
             $this->printMessage($words, "text", false);
             return strlen($data);
         });

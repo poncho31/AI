@@ -53,7 +53,7 @@ class Html
                 $js    = " ";
                 break;
             default:
-                $js    = $js . Javascript::chat();
+                $js    = $js . Javascript::chat()  . Javascript::sse();
                 break;
         }
 

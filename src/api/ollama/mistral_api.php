@@ -6,7 +6,7 @@ use GillesPinchart\Ai\api\api;
 
 class mistral_api extends api
 {
-    public function run(?string $prompt =null, bool $is_streaming = true): void
+    public function start(?string $prompt =null, bool $is_streaming = true): void
     {
         $this->docker_init('ollamaContainer', 'ollama', 'run mistral',  __DIR__."\\docker-compose.yaml");
         $prompt = $prompt ?? "Pourquoi le ciel est bleu ?";

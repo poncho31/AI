@@ -2,15 +2,16 @@
 
 use GillesPinchart\Ai\api\ollama\mistral_api;
 use GillesPinchart\Ai\APP\console\console;
-use GillesPinchart\Ai\APP\server\server;
+use GillesPinchart\Ai\APP\server\web_server;
 use GillesPinchart\Ai\APP\web\routes\routes;
+use GillesPinchart\Ai\server\sse\sse;
 
 require_once(__DIR__ . '/base_app.php');
 define('AI_START', microtime(true));
 
 // INIT
 $env     = "" ;
-$console = new console($argv);
+$console = new console($argv??[]);
 
 // RUN COMMAND
 switch ($console->action()){
@@ -32,7 +33,7 @@ switch ($console->action()){
 /** APIS **/
     case 'api':
         match ($console->param()){
-            'mistral' =>(new mistral_api())->run($console->param(2)),
+            'mistral' =>(new mistral_api())->start($console->param(2)),
              default  =>dd("API innexistante.")
         };
         break;
@@ -40,21 +41,22 @@ switch ($console->action()){
 /** SERVEUR WEB**/
     case 'serve':
         // Instance du serveur web
-        $base_dir = __DIR__;
-        $server  = new server($base_dir);
-        $server->web_server($base_dir, 'AI');
+        (new web_server())->start(__DIR__, 'AI', 'php', '\packages\php\php-8.3.2-nts');
         break;
-
+    case 'sse':
+        // Instance du serveur SSE
+        (new sse())->start();
+        break;
     default :
         // Routing du serveur web
         define('AI_INDEX_START', microtime(true));
-        (new routes())->display_routes();
+        (new routes())->get_routes();
         // Résumé :
         // 1) On lance le serveur web : php AI serve
-        // 2) Ca va envoyer les requêtes de rooting ici (dès qu'on change d'url ça passe par ici)
-        // 3) Le module de rooting identifie la route choisie et redirige le contenu html / css / js ou l'error 404
+        // 2) Les requêtes de rooting vont être capturée ici
+        // 3) Le module de rooting identifie la route choisie et redirige le contenu html / css / js
         // 4) Le site web peut faire des requêtes api en post vers le module de rooting
-        //
+        // 5) Un serveur SSE permettra le dialogue entre le serveur et le client en streaming
         //
         //
         //

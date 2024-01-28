@@ -45,13 +45,13 @@ class console
     function initCommand($arguments): array
     {
         return [
-            'action'    => $arguments[1],
+            'action'    => $arguments[1]??null,
             'parameters'=>[
                 1 => $arguments[2]??null,
                 2 => $arguments[3]??null,
             ],
             'metadata'  => [
-                'command_name'=>$arguments[0]
+                'command_name'=>$arguments[0]??null
             ]
         ];
     }

@@ -1,7 +1,3 @@
-
-
-
-
 <?php
 
 use GillesPinchart\Ai\constructors\Html\Html;
@@ -33,6 +29,9 @@ Html::begin("base");
             <div class="message sent">
                 <p>Hi! I have a question about ChatGPT.</p>
             </div>
+            <div id="sse-data">
+
+            </div>
             <!-- Plus de messages ici -->
         </div>
 
@@ -45,5 +44,32 @@ Html::begin("base");
     </div>
 </div>
 
+    <script>
+        const eventSource = new EventSource("http://localhost:666/ai/api/mistral");
 
-<?php Html::end(); ?>
+        eventSource.onmessage = function(event) {
+            // Manipulation des données reçues
+            const data = event.data;
+            console.log(data);
+
+            // Vous pouvez mettre à jour le DOM avec les données
+            // Exemple : document.getElementById('myElement').textContent = data;
+        };
+
+        eventSource.onerror = function(error) {
+            console.error("Erreur SSE :", error);
+        };
+
+        eventSource.onopen = function(event) {
+            console.log("Connexion SSE établie");
+        };
+
+        eventSource.addEventListener('end', function(event) {
+            // Événement personnalisé pour indiquer la fin du flux
+            console.log("Fin du flux SSE");
+            eventSource.close(); // Fermer la connexion SSE
+        });
+
+    </script>
+
+<?php Html::end("base"); ?>

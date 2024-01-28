@@ -17,12 +17,14 @@ class api_routes
         }
 
         // API ROUTES
-        $this->api_route('get',  "/ai/api/doc",      "doc","api_doc");
+        $this->api_route('get',"/ai/api/doc",    "api/doc",    "api_doc");
+        $this->api_route('get',"/ai/api/mistral","api/ai/mistral","api_mistral");
+
         return $this->api_routes;
     }
 
 
-    public function display_api_routes(): void
+    public function get_api_route(): void
     {
         // Init
         $is404 = true;
@@ -36,7 +38,7 @@ class api_routes
             }
         }
         if($is404){
-            include $this->api_routes('404')->route_path;
+            include $this->api_routes('api/404')->route_path;
         }
     }
 

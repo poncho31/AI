@@ -23,7 +23,7 @@ class web_routes
         }
 
         // ROUTES
-        $this->web_route('get',  "/",       "homepage");
+        $this->web_route('get',  "/",       "chatbot");
         $this->web_route('get',  "/example","example");
         $this->web_route('get',  "/404",    "404");
 
@@ -31,7 +31,7 @@ class web_routes
         return $this->web_routes;
     }
 
-    public function display_web_routes(): void
+    public function get_web_routes(): void
     {
         // Init
         $is404 = true;

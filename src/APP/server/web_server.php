@@ -2,9 +2,9 @@
 
 namespace GillesPinchart\Ai\APP\server;
 
-class server
+class web_server
 {
-    public  function web_server(string $path_base_project = __DIR__,string $path_index_file="public/index.php", string $type = 'php', string $package_path ="\packages\php\php-8.3.2-nts"): void
+    public  function start(string $path_base_project = __DIR__,string $path_index_file="public/index.php", string $type = 'php', string $package_path ="\packages\php\php-8.3.2-nts"): void
     {
         $index_path = $path_base_project. "\\". $path_index_file;
         switch ($type){
@@ -13,7 +13,7 @@ class server
                 $this->php_web_server($index_path, $package_path);
                 break;
             default:
-                echo "Le web server $type n'existe pas.";
+                echo "Le web webServer $type n'existe pas.";
         }
     }
     public function php_web_server(string $path_index_file, ?string $php_path): void

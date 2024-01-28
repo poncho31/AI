@@ -5,14 +5,14 @@ namespace GillesPinchart\Ai\APP\web\routes;
 class routes
 {
 
-    public function display_routes(): void
+    public function get_routes(): void
     {
         if(str_contains($_SERVER['REQUEST_URI'], 'ai/api')){
             header('Content-Type: application/json');
-            (new api_routes())->display_api_routes();
+            (new api_routes())->get_api_route();
         }
         else{
-            (new web_routes())->display_web_routes();
+            (new web_routes())->get_web_routes();
         }
     }
 
