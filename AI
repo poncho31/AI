@@ -1,8 +1,8 @@
-#!/usr/bin/env php
 <?php
 
 use GillesPinchart\Ai\APP\console\console;
 use GillesPinchart\Ai\APP\server\server;
+use GillesPinchart\Ai\APP\web\routes\routes;
 
 require_once(__DIR__ . '/base_app.php');
 define('AI_START', microtime(true));
@@ -10,7 +10,6 @@ define('AI_START', microtime(true));
 // INIT
 $env     = "" ;
 $console = new console($argv);
-$server  = new server();
 
 // RUN COMMAND
 switch ($console->action()){
@@ -33,7 +32,14 @@ switch ($console->action()){
         break;
 
     case 'serve':
+        $server  = new server();
         $base_dir = __DIR__;
-        $server->web_server($base_dir);
+        $server->web_server($base_dir, 'AI');
+        break;
+
+    default :
+        define('AI_INDEX_START', microtime(true));
+        $routes = new routes();
+        $routes->init_web_routes();
         break;
 }

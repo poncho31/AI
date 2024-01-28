@@ -1,7 +1,3 @@
 <?php
-use GillesPinchart\Ai\APP\web\routes\routes;
+// NOT USE index.php = See AI file
 
-require_once(__DIR__ . '/../base_app.php');
-
-$routes = new routes();
-$routes->init_routes();

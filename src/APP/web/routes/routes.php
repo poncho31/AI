@@ -7,32 +7,49 @@ use GillesPinchart\Ai\constructors\Router;
 
 class routes extends Router
 {
+
+/** WEB ROUTES **/
+
     /**
      *  MODIFIER ICI LA REDIRECTION DES ROUTES
-     * @return array<route_model>
+     * @param string|null $route
+     * @return route_model|array
      */
-    public function web_routes(): array
+    public function web_routes(?string $route = null): route_model|array
     {
-        // Homepage
-        $this->web_route('get',  "/",     view::page("homepage"),"web_home_page");
-        $this->web_route('get',  "/api",  view::page("api"),     "api_page");
+        // SELECT ROUTE
+        if ($route == '404') {
+            return $this->web_route('get', "/$route", "$route");
+        }
+
+        // ROUTES
+        $this->web_route('get',  "/",      "homepage");
+        $this->web_route('get',  "/api",   "api");
+        $this->web_route('get', "/404", "404");
+
 
         return $this->web_routes;
     }
 
-    public function api_routes(): array
+
+    public function init_web_routes(): void
     {
-        // $this->api_route('get',  "/api",      "home","web_home_page");
-        return $this->api_routes;
+        // Init
+        $is404 = true;
+
+        // méthode simple qui sera lente au plus il y aura de routes = VOIR : init_routes_temp() !!!
+        foreach ($this->web_routes() as $route){
+            if($route->route_url === $_SERVER['REQUEST_URI']){
+                // Inclu le fichier traité dans la vue
+                include $route->route_path;
+                $is404 = false;
+            }
+        }
+        if($is404){
+            include $this->web_routes('404')->route_path;
+        }
     }
 
-    public function routes(): array
-    {
-        return [
-            'web'=> $this->web_routes(),
-            'api'=> $this->api_routes()
-        ];
-    }
 
     /**
      * @param string $method
@@ -41,15 +58,27 @@ class routes extends Router
      * @param string $name
      * @return void
      */
-    private function web_route(string $method, string $url, string $view, string $name =""): void
+    private function web_route(string $method, string $url, string $view, string $name =""): route_model
     {
         $route = new route_model();
         $route->route_name   = $name;
-        $route->route_url    = $url    ;
-        $route->route_view   = $view;
+        $route->route_url    = $url;
+        $route->route_view   = view::page($view);
+        $route->route_path   = view::path($view);
         $route->route_method = $method;
 
         $this->web_routes [] = $route;
+        return $route;
+    }
+
+
+
+
+/** API ROUTES **/
+    public function api_routes(): array
+    {
+        // $this->api_route('get',  "/api",      "home","web_home_page");
+        return $this->api_routes;
     }
 
     private function api_route(string $method, string $url, string $view, string $name =""): void
@@ -58,22 +87,14 @@ class routes extends Router
         $route->route_type   = 'api';
         $route->route_name   = $name;
         $route->route_url    = $url    ;
-        $route->route_view   = $view;
+        $route->route_view   = view::page($view);
         $route->route_method = $method;
 
         $this->api_routes [] = $route;
     }
 
 
-    public function init_routes(): void
-    {
-        // méthode simple qui sera lente au plus il y aura de routes = VOIR : init_routes_temp() !!!
-        foreach ($this->web_routes() as $route){
-            if($route->route_url === $_SERVER['REQUEST_URI']){
-                echo $route->route_view;
-            }
-        }
-    }
+
 
     public function init_routes_temp(string $base_dir = __DIR__): void
     {
@@ -81,5 +102,14 @@ class routes extends Router
         foreach ($this->web_routes() as $route) {
             dd($route);
         }
+    }
+
+
+    public function routes(): array
+    {
+        return [
+            'web'=> $this->web_routes(),
+            'api'=> $this->api_routes()
+        ];
     }
 }

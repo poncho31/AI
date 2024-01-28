@@ -6,7 +6,7 @@ class server
 {
     public  function web_server(string $path_base_project = __DIR__,string $path_index_file="public/index.php", string $type = 'php'): void
     {
-        $index_path = $path_base_project. "/". $path_index_file;
+        $index_path = $path_base_project. "\\". $path_index_file;
         switch ($type){
             case 'php':
                 $this->php_web_server($index_path);
