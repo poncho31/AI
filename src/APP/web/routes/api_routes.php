@@ -3,6 +3,7 @@
 namespace GillesPinchart\Ai\APP\web\routes;
 
 use GillesPinchart\Ai\APP\web\resources\view;
+use GillesPinchart\Ai\server\sse\sse;
 
 class api_routes
 {
@@ -18,7 +19,9 @@ class api_routes
 
         // API ROUTES
         $this->api_route('get',"/ai/api/doc",    "api/doc",    "api_doc");
-        $this->api_route('get',"/ai/api/mistral","api/ai/mistral","api_mistral");
+
+
+        $this->api_route('get',"/ai/api/mistral",function(){(new sse())->start();},"api_mistral");
 
         return $this->api_routes;
     }
@@ -45,18 +48,18 @@ class api_routes
     /**
      * @param string $method
      * @param string $url
-     * @param string $view
+     * @param callable|string $view
      * @param string $name
      * @return route_model
      */
-    private function api_route(string $method, string $url, string $view, string $name =""): route_model
+    private function api_route(string $method, string $url, callable|string $view, string $name =""): route_model
     {
         $route = new route_model();
         $route->route_type   = 'api';
         $route->route_name   = $name;
         $route->route_url    = $url    ;
-        $route->route_view   = view::page($view);
-        $route->route_path   = view::path($view, 'api');
+        $route->route_view   = is_callable($view) ? $view() : view::page($view);
+        $route->route_path   = is_callable($view) ?"":view::path($view, 'api');
         $route->route_method = $method;
 
 

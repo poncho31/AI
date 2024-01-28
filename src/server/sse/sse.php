@@ -6,18 +6,9 @@ class sse
 {
     public function __construct()
     {
-        // Autoriser les requêtes depuis n'importe quel domaine
-        header('Access-Control-Allow-Origin: *');
-
-        // D'autres en-têtes CORS optionnels
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-        header('Access-Control-Allow-Headers: Content-Type');
-        header('Access-Control-Max-Age: 86400'); // Cache les résultats des pré-vérifications CORS pendant 1 jour
-
-
         header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
-        header('Connection: keep-alive');
+        header('Access-Control-Allow-Origin: *');
     }
 
     public function sendSseMessage($id, $data, $event = 'message'): void
@@ -32,7 +23,7 @@ class sse
         flush();
     }
 
-    public function start()
+    public function start(): void
     {
         $counter = 0;
         while (true) {
@@ -42,7 +33,6 @@ class sse
             $counter++;
             // Simule une attente d'une seconde
             sleep(1);
-            return;
         }
     }
 }
