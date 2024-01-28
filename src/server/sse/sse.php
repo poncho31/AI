@@ -26,13 +26,20 @@ class sse
     public function start(): void
     {
         $counter = 0;
-        while (true) {
-            // Traitement de la requête POST (vous pouvez ajouter votre logique ici)
-            $postData = file_get_contents("php://input");
-            $this->sendSseMessage($counter, "Received POST data: $postData", 'post_event');
-            $counter++;
-            // Simule une attente d'une seconde
-            sleep(1);
-        }
+
+        // $postData = file_get_contents("php://input");
+        $data = ['SERVER'=>$_SERVER, 'POST'=>$_POST, 'GET'=>$_GET, 'ENV'=>$_ENV, 'REQUEST'=>$_REQUEST, 'COOKIES'=>$_COOKIE, 'SESSIONS'=>$_SESSION??null, 'FILES'=>$_FILES];
+        $this->sendSseMessage($counter, json_encode($data), 'test_event');
+        sleep(1);
+
+        // while (true) {
+        //     // Traitement de la requête POST (vous pouvez ajouter votre logique ici)
+        //     $postData = file_get_contents("php://input");
+        //     $this->sendSseMessage($counter, "Received POST data: $postData", 'post_event');
+        //     $counter++;
+        //     // Simule une attente d'une seconde
+        //     sleep(1);
+        //     return;
+        // }
     }
 }

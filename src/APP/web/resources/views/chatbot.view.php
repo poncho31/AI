@@ -48,20 +48,27 @@ Html::begin("base");
         const eventSource = new EventSource("http://localhost:666/ai/api/mistral");
 
         eventSource.onmessage = function(event) {
-            // Manipulation des données reçues
-            const data = event.data;
-            console.log(data);
+            if (event.data !== null && event.data !== undefined) {
+                const data = event.data;
+                console.log(data);
 
-            // Vous pouvez mettre à jour le DOM avec les données
-            // Exemple : document.getElementById('myElement').textContent = data;
+                const newElement = document.createElement("li");
+                const eventList = document.getElementById("list");
+
+                newElement.textContent = "message: " + data;
+                eventList.appendChild(newElement);
+            }
+            else{
+                console.log("Vide");
+            }
         };
 
-        eventSource.onerror = function(error) {
-            console.error("Erreur SSE :", error);
+        eventSource.onerror = function(event) {
+            console.error("Erreur SSE :", event);
         };
 
         eventSource.onopen = function(event) {
-            console.log("Connexion SSE établie");
+            console.log("Connexion SSE établie", event);
         };
 
         eventSource.addEventListener('end', function(event) {

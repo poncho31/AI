@@ -36,7 +36,7 @@ class api_routes
         foreach ($this->api_routes() as $route){
             if($route->route_url === $_SERVER['REQUEST_URI']){
                 // Inclu le fichier traité dans la vue
-                include $route->route_path;
+                $path = $route->route_path;
                 $is404 = false;
             }
         }
