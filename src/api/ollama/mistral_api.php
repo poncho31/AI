@@ -8,7 +8,13 @@ class mistral_api extends api
 {
     public function start(?string $prompt =null, bool $is_streaming = true): void
     {
-        $this->docker_init('ollamaContainer', 'ollama', 'run mistral',  __DIR__."\\docker-compose.yaml");
+        $this->container_init(
+            'ollama_container',
+            'ollama',
+            'run mistral',
+            __DIR__."\\docker-compose.yaml",
+            "podman"
+        );
         $prompt = $prompt ?? "Pourquoi le ciel est bleu ?";
 
         $apiUrl    = 'http://localhost:11434/api/generate';

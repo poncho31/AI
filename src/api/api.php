@@ -4,14 +4,16 @@ namespace GillesPinchart\Ai\api;
 
 class api
 {
-    public function docker_init(string $container_name, string $image_name, string $command, string $docker_compose_path): void
+    public function container_init(string $container_name, string $image_name, string $command, string $container_compose_path, string $type_container ="docker"): void
     {
-        exec("docker start $container_name", $output, $is_error);
+        exec("$type_container start $container_name", $output, $is_error);
+
         $cmd = <<<CMD
-                cd $docker_compose_path
-                docker-compose up -d
-                docker start $container_name
-                docker exec -it $container_name $image_name $command
+                cd $container_compose_path
+                $type_container run $container_name
+                $type_container-compose up -d
+                $type_container start $container_name
+                $type_container exec -it $container_name $image_name $command
         CMD;
 
         if($is_error){

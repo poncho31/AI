@@ -21,7 +21,8 @@ switch ($console->action()){
         try {
             $console->command(function () use($console){
                 match ($console->param()){
-                    'test'   => dd("TEST"),
+
+                    'serve'   => (new web_server())->start(__DIR__,$console->param(2)),
                     default  => dd("Codes ici ... ou dans le match")
                 };
             });
