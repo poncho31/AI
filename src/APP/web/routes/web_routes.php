@@ -70,4 +70,9 @@ class web_routes
         $this->web_routes [] = $route;
         return $route;
     }
+
+    public function calculate($chiffre1, $chiffre2)
+    {
+        $calcul = $chiffre1 * $chiffre2;
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace GillesPinchart\Ai\api\ollama;
+namespace GillesPinchart\Ai\api\ollama\mistral;
 
 use GillesPinchart\Ai\api\api;
 
@@ -8,21 +8,24 @@ class mistral_api extends api
 {
     public function start(?string $prompt =null, bool $is_streaming = true): void
     {
-        $this->container_init(
-            'ollama_container',
+//        dd("END");
+        $canRun = $this->container_init(
+            'ollama_mistral_container',
             'ollama',
             'run mistral',
-            __DIR__."\\docker-compose.yaml",
-            "podman"
+            __DIR__,
+            "docker"
         );
-        $prompt = $prompt ?? "Pourquoi le ciel est bleu ?";
+        if($canRun){
+            $prompt = $prompt ?? "Pourquoi le ciel est bleu ?";
 
-        $apiUrl    = 'http://localhost:11434/api/generate';
-        $data      = $this->data_post_fields($prompt, $is_streaming);
+            $apiUrl    = 'http://localhost:11434/api/generate';
+            $data      = $this->data_post_fields($prompt, $is_streaming);
 
-        $this->printMessage("Votre question : $prompt", "title");
+            $this->printMessage("Votre question : $prompt", "title");
 
-        $this->curl_streaming($apiUrl, $data);
+            $this->curl_streaming($apiUrl, $data);
+        }
     }
 
     public function data_post_fields($prompt, $streaming): bool|string

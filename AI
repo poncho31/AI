@@ -1,6 +1,7 @@
 <?php
 
-use GillesPinchart\Ai\api\ollama\mistral_api;
+use GillesPinchart\Ai\api\ollama\mistral\mistral_api;
+use GillesPinchart\Ai\api\ollama\tiny_dolphin\tiny_dolphin_api;
 use GillesPinchart\Ai\APP\console\console;
 use GillesPinchart\Ai\APP\server\web_server;
 use GillesPinchart\Ai\APP\web\routes\routes;
@@ -21,7 +22,6 @@ switch ($console->action()){
         try {
             $console->command(function () use($console){
                 match ($console->param()){
-
                     'serve'   => (new web_server())->start(__DIR__,$console->param(2)),
                     default  => dd("Codes ici ... ou dans le match")
                 };
@@ -34,7 +34,8 @@ switch ($console->action()){
 /** APIS **/
     case 'api':
         match ($console->param()){
-            'mistral' =>(new mistral_api())->start($console->param(2)),
+            'mistral'       => (new mistral_api())->start($prompt=$console->param(2)),
+            'tiny_dolphin'  => (new tiny_dolphin_api())->start($prompt=$console->param(2)),
              default  =>dd("API innexistante.")
         };
         break;
