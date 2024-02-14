@@ -1,7 +1,8 @@
 version: '3'
 services:
   ollama:
-    image: ollama/ollama
+    image: ollama/ollama #ollama_tiny_dolphin_container_image
+    restart: on-failure
     container_name: ollama_tiny_dolphin_container
     ports:
       - "11435:11435"

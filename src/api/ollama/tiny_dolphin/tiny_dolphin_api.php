@@ -20,7 +20,7 @@ class tiny_dolphin_api extends api
         if($canRun){
             $prompt = $prompt ?? "Pourquoi le ciel est bleu ?";
 
-            $apiUrl    = 'http://localhost:11434/api/generate';
+            $apiUrl    = 'http://localhost:11435/api/generate';
             $data      = $this->data_post_fields($prompt, $is_streaming);
 
             $this->printMessage("Votre question : $prompt", "title");

@@ -29,13 +29,13 @@ class api
         else {
             // Exécuter la commande dans le conteneur
             $exec_cmd = "start $type_container exec -it $container_name $image_name $command";
-            $output = shell_exec($exec_cmd);
+            exec($exec_cmd, $output);
 
             // create image from container
-            // $this->create_image_from_container($container_name, "{$container_name}_image");
+            $this->create_image_from_container($container_name, "{$container_name}_image");
 
             // Afficher la sortie de la commande
-            $this->printMessage("Sortie de la commande :\n$output");
+            $this->printMessage("Sortie de la commande :\n". json_encode($output));
         }
 
         return true;
@@ -129,7 +129,7 @@ class api
 
         // Fonction de rappel pour afficher en streaming
         curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($ch, $data) {
-            $words = (json_decode($data??''))->response;
+            $words = (json_decode($data??''))->response ?? 'No response from curl streaming';
 
             $this->printMessage($words, "text", false);
             return strlen($data);
