@@ -8,14 +8,15 @@
     },
     "authors": [
         {
-            "name": "poncho31",
+            "name" : "Gilles Pinchart",
             "email": "gilles.pinchart@gmail.com"
         }
     ],
     "require": {
-        "ext-curl": "*",
-        "ext-json": "*",
-        "ext-pdo": "*",
-        "php": "8.3.2"
+        "ext-curl"   : "*",
+        "ext-json"   : "*",
+        "ext-pdo"    : "*",
+        "php"        : "8.3.2",
+        "ext-sqlite3": "*"
     }
 }

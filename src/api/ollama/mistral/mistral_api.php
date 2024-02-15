@@ -9,6 +9,7 @@ class mistral_api extends api
     public function start(?string $prompt =null, bool $is_streaming = true): void
     {
 //        dd("END");
+        $this->mistral_docker_compose(__DIR__);
         $canRun = $this->container_init(
             'ollama_mistral_container',
             'ollama',

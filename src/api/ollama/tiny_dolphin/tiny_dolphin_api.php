@@ -3,20 +3,47 @@
 namespace GillesPinchart\Ai\api\ollama\tiny_dolphin;
 
 use GillesPinchart\Ai\api\api;
+use GillesPinchart\Ai\database\Sqlite;
 
 class tiny_dolphin_api extends api
 {
-    public function start(?string $prompt =null, bool $is_streaming = true, ?string$type = "tiny"): void
+    /**
+     * @throws \Exception
+     */
+    public function start(?string $prompt =null, bool $is_streaming = true, ?string $type = "tiny"): void
     {
-        $type = $type === null ? "tinydolphin" : "tinydolphin:1.1b-v2.8-q2_K";
+        // test DB
+        $test = (new Sqlite("ai"))->init_ai_table();
+
+        die("END");
+
+        $this->create_docker_compose(
+            "$_DIR__",
+            "ollama",
+            "ollama/ollama",
+            "ollama_tiny_dolphin_container",
+            "11435:11435",
+            "ollama_tiny_dolphin_volume",
+            "/usr/share/ollama/tiny_dolphin/data",
+            'K:\projet\AI\src\docker\ollama\volumes\ollama\tiny_dolphin'
+        );
+
+        $type           = $type === null ? "tinydolphin" : "tinydolphin:1.1b-v2.8-q2_K";
+        $container_name = "ollama_tiny_dolphin_container";
+
+        $this->tiny_dolphin_docker_compose();
 
         $canRun = $this->container_init(
-            'ollama_tiny_dolphin_container',
+            "$container_name",
             "ollama",
             "run $type",
             __DIR__,
             "docker"
         );
+
+        // create image from container : todo : améliroer la gestion de la création si elle existe déja
+        $this->create_image_from_container($container_name, "{$container_name}_image");
+
         if($canRun){
             $prompt = $prompt ?? "Pourquoi le ciel est bleu ?";
 
@@ -27,6 +54,22 @@ class tiny_dolphin_api extends api
 
             $this->curl_streaming($apiUrl, $data);
         }
+    }
+
+    public function tiny_dolphin_docker_compose(string $_DIR__ = __DIR__): void
+    {
+
+        $this->create_docker_compose(
+            "$_DIR__",
+            "ollama",
+            "ollama/ollama",
+            "ollama_tiny_dolphin_container",
+            "11435:11435",
+            "ollama_tiny_dolphin_volume",
+            "/usr/share/ollama/tiny_dolphin/data",
+            'K:\projet\AI\src\docker\ollama\volumes\ollama\tiny_dolphin'
+        );
+
     }
 
     public function data_post_fields($prompt, $streaming): bool|string

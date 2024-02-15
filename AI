@@ -1,10 +1,12 @@
 <?php
 
+use GillesPinchart\Ai\api\api;
 use GillesPinchart\Ai\api\ollama\mistral\mistral_api;
 use GillesPinchart\Ai\api\ollama\tiny_dolphin\tiny_dolphin_api;
 use GillesPinchart\Ai\APP\console\console;
 use GillesPinchart\Ai\APP\server\web_server;
 use GillesPinchart\Ai\APP\web\routes\routes;
+use GillesPinchart\Ai\database\Sqlite;
 use GillesPinchart\Ai\server\sse\sse;
 
 require_once(__DIR__ . '/base_app.php');
@@ -33,11 +35,9 @@ switch ($console->action()){
 
 /** APIS **/
     case 'api':
-        match ($console->param()){
-            'mistral'       => (new mistral_api())->start($prompt=$console->param(2)),
-            'tiny_dolphin'  => (new tiny_dolphin_api())->start($prompt=$console->param(2)),
-             default  =>dd("API innexistante.")
-        };
+        // One line run api
+        (new Sqlite("ai"))->init_ai_table();
+        (new api())->start($api_name=$console->param());
         break;
 
 /** SERVEUR WEB**/

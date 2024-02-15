@@ -2,47 +2,52 @@
 
 namespace GillesPinchart\Ai\api;
 
+use GillesPinchart\Ai\database\Sqlite;
+
 class api
 {
     private int $container_init_count = 0;
-    public function container_init(string $container_name, string $image_name, string $command, string $container_compose_path, string $type_container ="docker"): bool
+    public function container_init(string $container_name, string $image_name, string $command, string $docker_compose_path, string $type_container ="docker"): bool
     {
-        // Le container est il démarré
-        $this->printMessage("Création et démarrage du conteneur en cours...");
-        $create_and_start_container_cmd = "cd $container_compose_path && $type_container-compose up -d && $type_container start $container_name";
-        shell_exec($create_and_start_container_cmd);
+        // Start container
+        $this->printMessage("Création et démarrage du container en cours...");
+        $create_and_start_container_cmd = <<<CMD
+            cd $docker_compose_path
+            docker-compose up -d
+            $type_container start $container_name
+        CMD;
+        exec($create_and_start_container_cmd, $output, $is_error);
 
-        // Attendre quelques secondes pour que le conteneur démarre complètement
-        sleep(5);
+        if(!$is_error){
+            $container_status = trim(shell_exec("$type_container inspect --format={{.State.Status}} $container_name"));
 
-        // Vérifier si le conteneur est en cours d'exécution
-        $check_container_status_cmd = "$type_container inspect --format={{.State.Status}} $container_name";
-        $container_status = trim(shell_exec($check_container_status_cmd));
+            // Afficher le statut du conteneur
+            $this->printMessage("Statut du conteneur : $container_status");
 
-        // Afficher le statut du conteneur
-        $this->printMessage("Statut du conteneur : $container_status");
+            // Si le conteneur n'est pas en cours d'exécution, afficher un message d'erreur
+            if ($container_status !== "running") {
+                $this->printMessage("Erreur : Le conteneur n'est pas en cours d'exécution. Vérifiez le journal pour plus d'informations.");
+            }
+            else {
+                // Exécuter la commande dans le conteneur
+                $exec_cmd = "start $type_container exec -it $container_name $image_name $command &";
+                exec($exec_cmd, $output);
 
-        // Si le conteneur n'est pas en cours d'exécution, afficher un message d'erreur
-        if ($container_status !== "running") {
-            $this->printMessage("Erreur : Le conteneur n'est pas en cours d'exécution. Vérifiez le journal pour plus d'informations.");
+                // Afficher la sortie de la commande
+                $this->printMessage("Sortie de la commande :\n". json_encode($output));
+            }
+
+            return true;
         }
-        else {
-            // Exécuter la commande dans le conteneur
-            $exec_cmd = "start $type_container exec -it $container_name $image_name $command";
-            exec($exec_cmd, $output);
-
-            // create image from container
-            $this->create_image_from_container($container_name, "{$container_name}_image");
-
-            // Afficher la sortie de la commande
-            $this->printMessage("Sortie de la commande :\n". json_encode($output));
+        else{
+            $this->printMessage("Erreur à la création / démarrage du container");
+            return false;
         }
 
-        return true;
 
 //        if(!$is_error){
 //            $cmd = <<<CMD
-//                cd $container_compose_path
+//                cd $docker_compose_path
 //                $type_container-compose up -d
 //                $type_container start $container_name
 //                $type_container exec -it $container_name $image_name $command
@@ -56,7 +61,7 @@ class api
 //            // Création du container
 //            exec("$type_container create --name $container_name hello-world", $create_output, $is_error_create);
 //            if(!$is_error_create && $this->container_init_count = 0){
-//                $this->container_init($container_name,$image_name,$command, $container_compose_path, $type_container);
+//                $this->container_init($container_name,$image_name,$command, $docker_compose_path, $type_container);
 //                $this->printMessage("Conteneur créé avec succès.");
 //                return true;
 //            }
@@ -145,5 +150,100 @@ class api
         echo $response;
         // Ferme la session cURL
         curl_close($ch);
+    }
+
+    public function create_docker_compose(
+            string $docker_compose_path    ,
+            string $image_name             ,
+            string $image_package          ,
+            string $container_name         ,
+            string $port                   ,
+            string $volume_name            ,
+            string $volume_path_docker     ,
+            string $volume_path_os         ,
+            string $docker_compose_version = '3',
+    ): int|bool
+    {
+        $docker_compose = <<<DOCKER_COMPOSE
+            version: '$docker_compose_version'
+            services:
+              $image_name:
+                image: $image_package #ollama_tiny_dolphin_container_image
+                container_name: $container_name
+                ports:
+                  - "$port"
+                volumes:
+                  - '$volume_name:$volume_path_docker'
+            
+            volumes:
+              $volume_name:
+                driver: local
+                driver_opts:
+                  type: none
+                  o: bind
+                  device: $volume_path_os
+
+        DOCKER_COMPOSE;
+
+        $docker_compose_file =  file_put_contents("$docker_compose_path\\docker-compose.yaml", $docker_compose);
+        return $docker_compose_file;
+    }
+
+
+
+    public function mistral_docker_compose(string $_DIR__): void
+    {
+        $this->create_docker_compose(
+            "$_DIR__",
+            "ollama",
+            "ollama/ollama",
+            "ollama_mistral_container",
+            "11434:11434",
+            "ollama_mistral_volume",
+            "/usr/share/ollama/mistral/data",
+            'K:\projet\AI\src\docker\ollama\volumes\ollama\mistral'
+        );
+
+    }
+
+
+
+    public function start(string $api_name, ?string $prompt =null, bool $is_streaming = true, ?string $type = "tiny"): void
+    {
+        // Get ai from DB
+        $api = (new Sqlite("ai"))->first("SELECT * FROM ai_api WHERE name = '$api_name'");
+
+        $this->create_docker_compose(
+            __DIR__,
+            $api['image_name'],
+            $api['image_package'],
+            $api['container_name'],
+            $api['volume_name'],
+            $api['volume_path_docker'],
+            $api['volume_path_os'],
+            $api['docker_compose_version']
+        );
+
+        $canRun = $this->container_init(
+            $api['container_name'],
+            $api['image_name'],
+            $api['command'],
+            __DIR__,
+            $api['container_type']
+        );
+
+        $this->create_image_from_container($api['container_name'], "{$api['image_container_name']}");
+
+
+        if($canRun){
+            $data = json_decode($api['api_data_post_field'], true);
+
+            $data['prompt']    = $prompt ?? $data['prompt'];
+            $data['stream'] = true;
+
+            $this->printMessage("Votre question : $prompt", "title");
+
+            $this->curl_streaming($api['api_url'], $data);
+        }
     }
 }
