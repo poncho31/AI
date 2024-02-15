@@ -238,7 +238,7 @@ class api
         if($canRun){
             $data = json_decode($api['api_data_post_field'], true);
 
-            $data['prompt']    = $prompt ?? $data['prompt'];
+            $data['prompt'] = $prompt ?? $data['prompt'];
             $data['stream'] = true;
 
             $this->printMessage("Votre question : $prompt", "title");
