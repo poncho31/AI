@@ -2,11 +2,14 @@
 
 namespace GillesPinchart\Ai\api;
 
+use GillesPinchart\Ai\APP\shortcut\env;
 use GillesPinchart\Ai\database\Sqlite;
 
 class api
 {
     private int $container_init_count = 0;
+    private int $count = 1;
+
     public function container_init(string $container_name, string $image_name, string $command, string $docker_compose_path, string $type_container ="docker"): bool
     {
         // Start container
@@ -18,7 +21,8 @@ class api
         CMD;
         exec($create_and_start_container_cmd, $output, $is_error);
 
-        if(!$is_error){
+
+        if(!$is_error && empty($output) == 0 ){
             $container_status = trim(shell_exec("$type_container inspect --format={{.State.Status}} $container_name"));
 
             // Afficher le statut du conteneur
@@ -41,7 +45,15 @@ class api
         }
         else{
             $this->printMessage("Erreur à la création / démarrage du container");
-            return false;
+            $docker_desktop_path = Env::get("DOCKER_DESKTOP_PATH");
+            $this->printMessage("Tentative N° $this->count : lancement de $docker_desktop_path");
+            exec('"'.$docker_desktop_path.'"');
+
+            if($this->count > 1){
+                $this->count++;
+                return false;
+            }
+            return $this->container_init( $container_name,  $image_name,  $command,  $docker_compose_path,  $type_container);
         }
 
 

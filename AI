@@ -35,8 +35,12 @@ switch ($console->action()){
 
 /** APIS **/
     case 'api':
-        // One line run api
+        // init DB ai_api
+        (new Sqlite("ai"))->init_environment_variables();
+
         (new Sqlite("ai"))->init_ai_table();
+
+        // Start API
         (new api())->start($api_name=$console->param());
         break;
 

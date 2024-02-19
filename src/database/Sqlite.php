@@ -3,6 +3,7 @@
 namespace GillesPinchart\Ai\database;
 
 use Exception;
+use GillesPinchart\Ai\APP\shortcut\env;
 use PDO;
 use PDOException;
 use SQLite3;
@@ -63,6 +64,28 @@ class Sqlite
             return $this->db->exec($query);
         }
         return 1;
+    }
+
+    public function init_environment_variables(): void
+    {
+        $this->create_table(
+            "ai_env",
+            [
+                "key"    => "TEXT UNIQUE",
+                "value"  => "TEXT",
+            ]
+        );
+
+        foreach (Env::get() as $key => $value){
+            $this->insert_table("ai_env",
+                [
+                    [
+                        "key"   => $key,
+                        "value" => $value,
+                    ]
+                ]
+            );
+        }
     }
 
     public function init_ai_table(): void
