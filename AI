@@ -1,8 +1,6 @@
 <?php
 
 use GillesPinchart\Ai\api\api;
-use GillesPinchart\Ai\api\ollama\mistral\mistral_api;
-use GillesPinchart\Ai\api\ollama\tiny_dolphin\tiny_dolphin_api;
 use GillesPinchart\Ai\APP\console\console;
 use GillesPinchart\Ai\APP\server\web_server;
 use GillesPinchart\Ai\APP\web\routes\routes;
@@ -35,7 +33,7 @@ switch ($console->action()){
 
 /** APIS **/
     case 'api':
-        // init DB ai_api
+        // init DB ai_api : todo => Ajouter un contrôle si
         (new Sqlite("ai"))->init_environment_variables();
 
         (new Sqlite("ai"))->init_ai_table();

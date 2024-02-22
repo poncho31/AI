@@ -222,9 +222,10 @@ class api
 
     public function start(string $api_name, ?string $prompt =null, bool $is_streaming = true, ?string $type = "tiny"): void
     {
-        // Get ai from DB
+        // Get AI from DB
         $api = (new Sqlite("ai"))->first("SELECT * FROM ai_api WHERE name = '$api_name'");
 
+        // Create docker compose
         $this->create_docker_compose(
             __DIR__,
             $api['image_name'],
@@ -236,6 +237,7 @@ class api
             $api['docker_compose_version']
         );
 
+        // Init container
         $canRun = $this->container_init(
             $api['container_name'],
             $api['image_name'],
@@ -244,6 +246,7 @@ class api
             $api['container_type']
         );
 
+        // Make image from created container : can be use after without download
         $this->create_image_from_container($api['container_name'], "{$api['image_container_name']}");
 
 
