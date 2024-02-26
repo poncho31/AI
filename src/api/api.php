@@ -12,50 +12,42 @@ class api
 
     public function container_init(string $container_name, string $image_name, string $command, string $docker_compose_path, string $type_container ="docker"): bool
     {
-        // Start container
+        /** Lancement de docker desktop */
+        $docker_desktop_path = Env::get("DOCKER_DESKTOP_PATH");
+        $this->printMessage("Tentative N° $this->count : lancement de $docker_desktop_path");
+        exec('"'.$docker_desktop_path.'"');
+
+
+        /**  Démarrage / création du container **/
         $this->printMessage("Création et démarrage du container en cours...");
+        chdir($docker_compose_path);
         $create_and_start_container_cmd = <<<CMD
-            cd $docker_compose_path
             docker-compose up -d
             $type_container start $container_name
         CMD;
-        exec($create_and_start_container_cmd, $output, $is_error);
+        var_dump($create_and_start_container_cmd);
+        $test = shell_exec($create_and_start_container_cmd);
 
 
-        if(!$is_error && empty($output) == 0 ){
-            $container_status = trim(shell_exec("$type_container inspect --format={{.State.Status}} $container_name"));
+        // Vérification container
+        // Run container
+        $container_status = trim(shell_exec("$type_container inspect --format={{.State.Status}} $container_name"));
+        // Afficher le statut du conteneur
+        $this->printMessage("Statut du conteneur : $container_status");
 
-            // Afficher le statut du conteneur
-            $this->printMessage("Statut du conteneur : $container_status");
-
-            // Si le conteneur n'est pas en cours d'exécution, afficher un message d'erreur
-            if ($container_status !== "running") {
-                $this->printMessage("Erreur : Le conteneur n'est pas en cours d'exécution. Vérifiez le journal pour plus d'informations.");
-            }
-            else {
-                // Exécuter la commande dans le conteneur
-                $exec_cmd = "start $type_container exec -it $container_name $image_name $command &";
-                exec($exec_cmd, $output);
-
-                // Afficher la sortie de la commande
-                $this->printMessage("Sortie de la commande :\n". json_encode($output));
-            }
-
-            return true;
+        // Si le conteneur n'est pas en cours d'exécution, afficher un message d'erreur
+        if ($container_status !== "running") {
+            $this->printMessage("Erreur : Le conteneur n'est pas en cours d'exécution. Vérifiez le journal pour plus d'informations.");
         }
-        else{
-            $this->printMessage("Erreur à la création / démarrage du container");
-            $docker_desktop_path = Env::get("DOCKER_DESKTOP_PATH");
-            $this->printMessage("Tentative N° $this->count : lancement de $docker_desktop_path");
-            exec('"'.$docker_desktop_path.'"');
+        else {
+            // Exécuter la commande dans le conteneur
+            $exec_cmd = "start $type_container exec -it $container_name $image_name $command &";
+            exec($exec_cmd, $output);
 
-            if($this->count > 1){
-                $this->count++;
-                return false;
-            }
-            return $this->container_init( $container_name,  $image_name,  $command,  $docker_compose_path,  $type_container);
+            // Afficher la sortie de la commande
+            $this->printMessage("Sortie de la commande :\n". json_encode($output));
         }
-
+        return 1;
 
 //        if(!$is_error){
 //            $cmd = <<<CMD
@@ -197,6 +189,7 @@ class api
 
         DOCKER_COMPOSE;
 
+
         $docker_compose_file =  file_put_contents("$docker_compose_path\\docker-compose.yaml", $docker_compose);
         return $docker_compose_file;
     }
@@ -225,16 +218,20 @@ class api
         // Get AI from DB
         $api = (new Sqlite("ai"))->first("SELECT * FROM ai_api WHERE name = '$api_name'");
 
+        $docker_compose_path = __DIR__."\\{$api['image_name']}\\$api_name";
+
         // Create docker compose
         $this->create_docker_compose(
-            __DIR__,
-            $api['image_name'],
-            $api['image_package'],
-            $api['container_name'],
-            $api['volume_name'],
-            $api['volume_path_docker'],
-            $api['volume_path_os'],
-            $api['docker_compose_version']
+            "{$docker_compose_path}",
+            "{$api['image_name']}",
+            "{$api['image_package']}",
+            "{$api['container_name']}",
+            "{$api['port']}",
+            "{$api['volume_name']}",
+            "{$api['volume_path_docker']}",
+            "{$api['volume_path_os']}",
+            "{$api['docker_compose_version']}",
+
         );
 
         // Init container
@@ -242,7 +239,7 @@ class api
             $api['container_name'],
             $api['image_name'],
             $api['command'],
-            __DIR__,
+            "{$docker_compose_path}",
             $api['container_type']
         );
 

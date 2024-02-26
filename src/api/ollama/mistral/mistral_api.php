@@ -6,7 +6,7 @@ use GillesPinchart\Ai\api\api;
 
 class mistral_api extends api
 {
-    public function start(?string $prompt =null, bool $is_streaming = true): void
+    public function start_mistral_test(?string $prompt =null, bool $is_streaming = true): void
     {
 //        dd("END");
         $this->mistral_docker_compose(__DIR__);
