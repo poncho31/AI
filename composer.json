@@ -1,15 +1,15 @@
 {
-    "name": "gilles.pinchart/ai",
+    "name": "php/ai",
     "description": "AI test trough a simple php, html, css interface",
     "autoload": {
         "psr-4": {
-            "GillesPinchart\\Ai\\": "src/"
+            "php\\ai\\": "src/"
         }
     },
-    "authors": [
+    "repositories": [
         {
-            "name" : "Gilles Pinchart",
-            "email": "gilles.pinchart@gmail.com"
+            "type": "vcs",
+            "url": "https://github.com/poncho31/PhpTools.git"
         }
     ],
     "require": {
@@ -17,6 +17,7 @@
         "ext-json"   : "*",
         "ext-pdo"    : "*",
         "php"        : "8.3.2",
-        "ext-sqlite3": "*"
+        "ext-sqlite3": "*",
+        "poncho31/phptools": "dev-main"
     }
 }
