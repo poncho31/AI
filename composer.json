@@ -13,11 +13,11 @@
         }
     ],
     "require": {
+        "php"        : "8.3.1",
         "ext-curl"   : "*",
         "ext-json"   : "*",
         "ext-pdo"    : "*",
-        "php"        : "8.3.2",
         "ext-sqlite3": "*",
-        "poncho31/phptools": "dev-main"
+        "php/phptools": "dev-main"
     }
 }

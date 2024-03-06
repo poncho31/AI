@@ -4,18 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37d27f56ab70ccbdd7e11277ae510e3a",
-    "packages": [],
+    "content-hash": "a573ed0ee870f9c2e2a357203f90b55e",
+    "packages": [
+        {
+            "name": "php/phptools",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:poncho31/PhpTools.git",
+                "reference": "7dd125792dc41efc8b5f7831353b79c2397c2394"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/poncho31/PhpTools/zipball/7dd125792dc41efc8b5f7831353b79c2397c2394",
+                "reference": "7dd125792dc41efc8b5f7831353b79c2397c2394",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-pdo": "*",
+                "ext-sqlite3": "*",
+                "php": "8.3.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "php\\phptools\\": "src/"
+                }
+            },
+            "description": "Just php tools",
+            "support": {
+                "source": "https://github.com/poncho31/PhpTools/tree/main",
+                "issues": "https://github.com/poncho31/PhpTools/issues"
+            },
+            "time": "2024-03-06T21:12:22+00:00"
+        }
+    ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "php/phptools": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
+        "php": "8.3.1",
         "ext-curl": "*",
         "ext-json": "*",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "ext-sqlite3": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
