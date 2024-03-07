@@ -1,6 +1,6 @@
 <?php
 
-namespace GillesPinchart\Ai\server\sse;
+namespace php\ai\server\sse;
 
 class sse
 {

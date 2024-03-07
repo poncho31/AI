@@ -1,5 +1,5 @@
 <?php
-namespace GillesPinchart\Ai\projects\ai_auto_improve;
+namespace php\ai\projects\ai_auto_improve;
 
 use Exception; // For error handling
 

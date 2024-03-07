@@ -1,6 +1,6 @@
 <?php
 
-namespace GillesPinchart\Ai\APP\server;
+namespace php\ai\APP\server;
 
 class web_server
 {

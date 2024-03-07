@@ -1,6 +1,6 @@
 <?php
 
-namespace GillesPinchart\Ai\APP\web\resources;
+namespace php\ai\APP\web\resources;
 
 class view
 {

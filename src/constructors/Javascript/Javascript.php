@@ -1,6 +1,6 @@
 <?php
 
-namespace GillesPinchart\Ai\constructors\Javascript;
+namespace php\ai\constructors\Javascript;
 
 class Javascript
 {

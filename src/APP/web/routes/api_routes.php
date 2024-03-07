@@ -1,9 +1,9 @@
 <?php
 
-namespace GillesPinchart\Ai\APP\web\routes;
+namespace php\ai\APP\web\routes;
 
-use GillesPinchart\Ai\APP\web\resources\view;
-use GillesPinchart\Ai\server\sse\sse;
+use php\ai\APP\web\resources\view;
+use php\ai\server\sse\sse;
 
 class api_routes
 {

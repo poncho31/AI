@@ -1,6 +1,6 @@
 <?php
 
-namespace GillesPinchart\Ai\constructors\Css;
+namespace php\ai\constructors\Css;
 
 class Css
 {

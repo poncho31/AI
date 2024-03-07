@@ -1,6 +1,6 @@
 <?php
 
-namespace GillesPinchart\Ai\APP\shortcut;
+namespace php\ai\APP\shortcut;
 
 class storage
 {

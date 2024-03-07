@@ -1,7 +1,7 @@
 <?php
 
-use GillesPinchart\Ai\constructors\Html\Html;
-use GillesPinchart\Ai\constructors\Html\HtmlImage;
+use php\ai\constructors\Html\Html;
+use php\ai\constructors\Html\HtmlImage;
 
     Html::begin("error");
 ?>

@@ -1,8 +1,8 @@
 <?php
 
-use GillesPinchart\Ai\APP\shortcut\debug;
-use GillesPinchart\Ai\APP\shortcut\env;
-use GillesPinchart\Ai\APP\shortcut\storage;
+use php\ai\APP\shortcut\debug;
+use php\ai\APP\shortcut\env;
+use php\ai\APP\shortcut\storage;
 use JetBrains\PhpStorm\NoReturn;
 
 // Debug

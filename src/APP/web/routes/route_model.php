@@ -1,6 +1,6 @@
 <?php
 
-namespace GillesPinchart\Ai\APP\web\routes;
+namespace php\ai\APP\web\routes;
 
 class route_model
 {

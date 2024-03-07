@@ -1,9 +1,9 @@
 <?php
 
-namespace GillesPinchart\Ai\api\ollama\tiny_dolphin;
+namespace php\ai\api\ollama\tiny_dolphin;
 
-use GillesPinchart\Ai\api\api;
-use GillesPinchart\Ai\database\Sqlite;
+use php\ai\api\api;
+use php\ai\database\Sqlite;
 
 class tiny_dolphin_api extends api
 {

@@ -1,70 +1,7 @@
 <?php
 
-use GillesPinchart\Ai\api\api;
-use GillesPinchart\Ai\APP\console\console;
-use GillesPinchart\Ai\APP\server\web_server;
-use GillesPinchart\Ai\APP\web\routes\routes;
-use GillesPinchart\Ai\database\Sqlite;
-use GillesPinchart\Ai\server\sse\sse;
+use phptools\console\console;
+require __DIR__ . '/vendor/php/phptools/src/__shortcuts.php';
+require __DIR__ . '/vendor/autoload.php';
 
-require_once(__DIR__ . '/base_app.php');
-define('AI_START', microtime(true));
-
-// INIT
-$env     = "" ;
-$console = new console($argv??[]);
-
-// RUN COMMAND
-switch ($console->action()){
-
-/** COMMANDES **/
-    case 'cmd':
-        try {
-            $console->command(function () use($console){
-                match ($console->param()){
-                    'serve'   => (new web_server())->start(__DIR__,$console->param(2)),
-                    default  => dd("Codes ici ... ou dans le match")
-                };
-            });
-        } catch (Exception $e) {
-            dd($e);
-        }
-        break;
-
-/** APIS **/
-    case 'api':
-        // init DB ai_api : todo => Ajouter un contrôle si
-        (new Sqlite("ai"))->init_environment_variables();
-
-        (new Sqlite("ai"))->init_ai_table();
-
-        // Start API
-        (new api())->start($api_name=$console->param());
-        break;
-
-/** SERVEUR WEB**/
-    case 'serve':
-        // Instance du serveur web
-        (new web_server())->start(__DIR__, 'AI', 'php', '\packages\php\php-8.3.2-nts');
-        break;
-    case 'sse':
-        // Instance du serveur SSE
-        (new sse())->start();
-        break;
-    default :
-        // Routing du serveur web
-        define('AI_INDEX_START', microtime(true));
-        (new routes())->get_routes();
-        // Résumé :
-        // 1) On lance le serveur web : php AI serve
-        // 2) Les requêtes de rooting vont être capturée ici
-        // 3) Le module de rooting identifie la route choisie et redirige le contenu html / css / js
-        // 4) Le site web peut faire des requêtes api en post vers le module de rooting
-        // 5) Un serveur SSE permettra le dialogue entre le serveur et le client en streaming
-        //
-        //
-        //
-        break;
-
-
-}
+(new console($argv??[]))->run();

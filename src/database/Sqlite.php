@@ -1,9 +1,9 @@
 <?php
 
-namespace GillesPinchart\Ai\database;
+namespace php\ai\database;
 
 use Exception;
-use GillesPinchart\Ai\APP\shortcut\env;
+use php\ai\APP\shortcut\env;
 use PDO;
 use PDOException;
 use SQLite3;

@@ -1,9 +1,9 @@
 <?php
 
-namespace GillesPinchart\Ai\constructors\Html;
+namespace php\ai\constructors\Html;
 
-use GillesPinchart\Ai\constructors\Css\Css;
-use GillesPinchart\Ai\constructors\Javascript\Javascript;
+use php\ai\constructors\Css\Css;
+use php\ai\constructors\Javascript\Javascript;
 
 class Html
 {

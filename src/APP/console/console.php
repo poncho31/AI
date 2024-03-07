@@ -1,6 +1,6 @@
 <?php
 
-namespace GillesPinchart\Ai\APP\console;
+namespace php\ai\APP\console;
 
 use Exception;
 

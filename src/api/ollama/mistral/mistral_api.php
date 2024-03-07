@@ -1,8 +1,8 @@
 <?php
 
-namespace GillesPinchart\Ai\api\ollama\mistral;
+namespace php\ai\api\ollama\mistral;
 
-use GillesPinchart\Ai\api\api;
+use php\ai\api\api;
 
 class mistral_api extends api
 {

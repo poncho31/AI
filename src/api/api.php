@@ -1,9 +1,9 @@
 <?php
 
-namespace GillesPinchart\Ai\api;
+namespace php\ai\api;
 
-use GillesPinchart\Ai\APP\shortcut\env;
-use GillesPinchart\Ai\database\Sqlite;
+use php\ai\APP\shortcut\env;
+use php\ai\database\Sqlite;
 
 class api
 {

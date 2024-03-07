@@ -1,7 +1,7 @@
 <?php
 namespace AI\public;
 
-use GillesPinchart\Ai\database\Sqlite;
+use php\ai\database\Sqlite;
 
 require_once __DIR__ . '/../../../../vendor/autoload.php';
 

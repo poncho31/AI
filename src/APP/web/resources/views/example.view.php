@@ -1,6 +1,6 @@
 <?php
 
-use GillesPinchart\Ai\constructors\Html\Html;
+use php\ai\constructors\Html\Html;
 
 Html::begin("example");
 

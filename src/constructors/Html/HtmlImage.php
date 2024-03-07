@@ -1,6 +1,6 @@
 <?php
 
-namespace GillesPinchart\Ai\constructors\Html;
+namespace php\ai\constructors\Html;
 
 class HtmlImage extends Html
 {
