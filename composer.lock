@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:poncho31/PhpTools.git",
-                "reference": "e780be24e72dea5e9e7b069b4309d3d8a2bc9ef7"
+                "reference": "66dc71af1f57d58f40181aa531e76c76356f8fb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/poncho31/PhpTools/zipball/e780be24e72dea5e9e7b069b4309d3d8a2bc9ef7",
-                "reference": "e780be24e72dea5e9e7b069b4309d3d8a2bc9ef7",
+                "url": "https://api.github.com/repos/poncho31/PhpTools/zipball/66dc71af1f57d58f40181aa531e76c76356f8fb3",
+                "reference": "66dc71af1f57d58f40181aa531e76c76356f8fb3",
                 "shasum": ""
             },
             "require": {
@@ -39,7 +39,7 @@
                 "source": "https://github.com/poncho31/PhpTools/tree/main",
                 "issues": "https://github.com/poncho31/PhpTools/issues"
             },
-            "time": "2024-03-07T20:41:25+00:00"
+            "time": "2024-03-07T21:40:47+00:00"
         }
     ],
     "packages-dev": [],
